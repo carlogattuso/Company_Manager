@@ -7,6 +7,10 @@ public class CompanyManagerImplementation implements CompanyManager {
 
     HashMap<String, Employee> employees;
 
+    public int getSize(){
+        return employees.size();
+    }
+
     public CompanyManagerImplementation() { this.employees = new HashMap<String, Employee>(); }
 
     public void addSell(String id_vendor, double amount) {

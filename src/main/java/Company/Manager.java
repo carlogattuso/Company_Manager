@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Manager extends Employee {
 
-    private List<Employee> employees;
+    List<Employee> employees;
 
     public void AddEmployee(Employee e){
         this.employees.add(e);
@@ -19,7 +19,7 @@ public class Manager extends Employee {
         this.id = id;
         this.name = name;
         this.salary = salary;
-        this.employees = new ArrayList<Employee>();
+        this.employees = new ArrayList<>();
     }
 
     @Override
@@ -34,6 +34,9 @@ public class Manager extends Employee {
                 for(Sell sell : sells){
                     sell_amount += sell.getAmount();
                 }
+            }
+            else {
+                //Throw Vendor not found exception
             }
         }
 

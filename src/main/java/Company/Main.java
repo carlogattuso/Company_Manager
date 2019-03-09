@@ -9,6 +9,8 @@ public class Main {
 
         CompanyManager cm = new CompanyManagerImplementation();
 
+        int i = cm.getSize();
+
         cm.addManager("2292828X", "Carlo", 5000);
         cm.addManager("4795783F", "Mario", 5000);
 

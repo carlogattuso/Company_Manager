@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface CompanyManager {
 
+    int getSize();
+
     void addEmployee(String id, String name, double salary, String id_manager, String type);
 
     void addManager(String id, String name, double salary);
