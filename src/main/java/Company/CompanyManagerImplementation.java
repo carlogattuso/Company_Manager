@@ -13,30 +13,35 @@ public class CompanyManagerImplementation implements CompanyManager {
 
     public CompanyManagerImplementation() { this.employees = new HashMap<String, Employee>(); }
 
-    public void addSell(String id_vendor, double amount) {
-        Sell s = new Sell(id_vendor,amount);
+    public void addSell(String id_vendor, double amount) throws VendorNotFoundException {
         Vendor v = (Vendor) findById(id_vendor);
-        List<Sell> sells = v.getSells();
-        sells.add(s);
-        v.setSells(sells);
+        if(v!=null){
+            Sell s = new Sell(id_vendor,amount);
+            v.addSell(s);
+        }
+        else throw new VendorNotFoundException("Vendor not found");
     }
 
-    public void addEmployee(String id, String name, double salary, String id_manager, String type) {
+    public void addEmployee(String id, String name, double salary, String id_manager, String type) throws TypeNotFoundException, ManagerNotFoundException{
         if(type.equals("vendor")||type.equals("Vendor")){
-            Employee e = new Vendor(id,name,salary,id_manager);
-            this.employees.put (e.getId(), e);
             Manager m = (Manager) findById(id_manager);
-            m.AddEmployee(e);
+            if(m!=null){
+                Employee e = new Vendor(id,name,salary,id_manager);
+                this.employees.put (e.getId(), e);
+                m.AddEmployeeToManager(e);
+            }
+            else throw new ManagerNotFoundException("Manager not found");
         }
         else if (type.equals("operator")||type.equals("Operator")){
-            Employee e = new Operator(id,name,salary,id_manager);
-            this.employees.put (e.getId(), e);
             Manager m = (Manager) findById(id_manager);
-            m.AddEmployee(e);
+            if(m!=null){
+                Employee e = new Operator(id,name,salary,id_manager);
+                this.employees.put (e.getId(), e);
+                m.AddEmployeeToManager(e);
+            }
+            else throw new ManagerNotFoundException("Manager not found");
         }
-        else {
-            //TypeNotFoundException
-        }
+        else throw new TypeNotFoundException("Employee type not available, it should be vendor or operator");
     }
 
     public void addManager(String id, String name, double salary) {
@@ -47,6 +52,11 @@ public class CompanyManagerImplementation implements CompanyManager {
     public Employee findById(String id) {
         Employee e = this.employees.get(id);
         return e;
+    }
+
+    public Manager findManagerById(String id_manager){
+        Manager m = (Manager) this.employees.get(id_manager);
+        return m;
     }
 
     public List<Employee> findAllByManager(String idManager) {

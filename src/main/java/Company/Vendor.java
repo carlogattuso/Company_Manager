@@ -13,8 +13,12 @@ public class Vendor extends Employee {
         return sells;
     }
 
-    public void setSells(List<Sell> sells) {
-        this.sells = sells;
+    public void addSell(Sell s) {
+        this.sells.add(s);
+    }
+
+    public int getSellsSize() {
+        return sells.size();
     }
 
     public Vendor(String id, String name, double salary, String id_manager) {

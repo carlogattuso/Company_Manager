@@ -5,10 +5,14 @@ import java.util.List;
 
 public class Manager extends Employee {
 
-    List<Employee> employees;
+    private List<Employee> employees;
 
-    public void AddEmployee(Employee e){
+    public void AddEmployeeToManager(Employee e){
         this.employees.add(e);
+    }
+
+    public int getListSize(){
+        return employees.size();
     }
 
     public List<Employee> getEmployees() {

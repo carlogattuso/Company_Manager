@@ -4,14 +4,14 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TypeNotFoundException {
         // write your code here
 
         CompanyManager cm = new CompanyManagerImplementation();
 
         int i = cm.getSize();
 
-        cm.addManager("2292828X", "Carlo", 5000);
+        /*cm.addManager("2292828X", "Carlo", 5000);
         cm.addManager("4795783F", "Mario", 5000);
 
         cm.addEmployee("2933456C", "Juan", 2000, "2292828X", "vendor");
@@ -81,5 +81,6 @@ public class Main {
         e.UpdateSalary(1200);
 
         List<Employee> employees = cm.findAllByManager("2292828X");
+        */
     }
 }
