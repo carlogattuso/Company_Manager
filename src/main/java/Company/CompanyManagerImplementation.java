@@ -1,11 +1,13 @@
 package Company;
 
-import java.util.HashMap;
-import java.util.List;
+import com.sun.xml.internal.ws.message.EmptyMessageImpl;
 
-public class CompanyManagerImplementation implements CompanyManager {
+import java.util.*;
 
-    HashMap<String, Employee> employees;
+public class CompanyManagerImplementation implements CompanyManager{
+
+    private HashMap<String, Employee> employees;
+    private int MAX_size;
 
     public int getSize(){
         return employees.size();
@@ -13,35 +15,39 @@ public class CompanyManagerImplementation implements CompanyManager {
 
     public CompanyManagerImplementation() { this.employees = new HashMap<String, Employee>(); }
 
+    public CompanyManagerImplementation(int MAX) {
+        this.employees = new HashMap<>(MAX);
+        this.MAX_size = MAX;
+    }
+
     public void addSell(String id_vendor, double amount) throws VendorNotFoundException {
-        Vendor v = (Vendor) findById(id_vendor);
-        if(v!=null){
+        Employee v = findById(id_vendor);
+        if(v!=null && v instanceof Vendor){
             Sell s = new Sell(id_vendor,amount);
-            v.addSell(s);
+            ((Vendor) v).addSell(s);
         }
         else throw new VendorNotFoundException("Vendor not found");
     }
 
-    public void addEmployee(String id, String name, double salary, String id_manager, String type) throws TypeNotFoundException, ManagerNotFoundException{
-        if(type.equals("vendor")||type.equals("Vendor")){
-            Manager m = (Manager) findById(id_manager);
-            if(m!=null){
-                Employee e = new Vendor(id,name,salary,id_manager);
-                this.employees.put (e.getId(), e);
-                m.AddEmployeeToManager(e);
-            }
-            else throw new ManagerNotFoundException("Manager not found");
+    public void addEmployee(String id, String name, double salary, String id_manager, String type) throws TypeNotFoundException, ManagerNotFoundException, ListFullException{
+        if(employees.size()==MAX_size) throw new ListFullException("List of employees is full");
+        else {
+            if (type.equals("vendor") || type.equals("Vendor")) {
+                Manager m = (Manager) findById(id_manager);
+                if (m != null) {
+                    Employee e = new Vendor(id, name, salary, id_manager);
+                    this.employees.put(e.getId(), e);
+                    m.AddEmployeeToManager(e);
+                } else throw new ManagerNotFoundException("Manager not found");
+            } else if (type.equals("operator") || type.equals("Operator")) {
+                Manager m = (Manager) findById(id_manager);
+                if (m != null) {
+                    Employee e = new Operator(id, name, salary, id_manager);
+                    this.employees.put(e.getId(), e);
+                    m.AddEmployeeToManager(e);
+                } else throw new ManagerNotFoundException("Manager not found");
+            } else throw new TypeNotFoundException("Employee type not available, it should be vendor or operator");
         }
-        else if (type.equals("operator")||type.equals("Operator")){
-            Manager m = (Manager) findById(id_manager);
-            if(m!=null){
-                Employee e = new Operator(id,name,salary,id_manager);
-                this.employees.put (e.getId(), e);
-                m.AddEmployeeToManager(e);
-            }
-            else throw new ManagerNotFoundException("Manager not found");
-        }
-        else throw new TypeNotFoundException("Employee type not available, it should be vendor or operator");
     }
 
     public void addManager(String id, String name, double salary) {
@@ -54,21 +60,37 @@ public class CompanyManagerImplementation implements CompanyManager {
         return e;
     }
 
-    public Manager findManagerById(String id_manager){
-        Manager m = (Manager) this.employees.get(id_manager);
-        return m;
-    }
-
-    public List<Employee> findAllByManager(String idManager) {
+    public List<Employee> findAllByManager(String idManager) throws ManagerNotFoundException, ListEmployeesEmptyException {
         Employee e = this.employees.get(idManager);
-        Manager manager;
         List<Employee> res = null;
 
         if ((e != null) && e instanceof Manager) {
-            manager = (Manager)e;
+            Manager manager = (Manager)e;
             res = manager.getEmployees();
+            if(res == null) throw new ListEmployeesEmptyException("This manager does not have employees");
+            else return res;
         }
+        else throw new ManagerNotFoundException("Manager not found");
+    }
 
-        return res;
+    public List<Employee> findAllOrderByName(){
+        List<Employee> list = new ArrayList<>();
+        Set<String> stringSet = this.employees.keySet();
+        for(String set: stringSet){
+            list.add(this.employees.get(set));
+        }
+        Collections.sort(list);
+        return list;
+    }
+
+    @Override
+    public List<Employee> findAllOrderBySalary() {
+        List<Employee> list = new ArrayList<>();
+        Set<String> stringSet = this.employees.keySet();
+        for(String set: stringSet){
+            list.add(this.employees.get(set));
+        }
+        Collections.sort(list, (one, other) -> other.getSalary().compareTo(one.getSalary()));
+        return list;
     }
 }

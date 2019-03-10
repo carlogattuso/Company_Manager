@@ -4,20 +4,20 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws TypeNotFoundException {
+    public static void main(String[] args) throws TypeNotFoundException, ListFullException, ManagerNotFoundException {
         // write your code here
+
 
         CompanyManager cm = new CompanyManagerImplementation();
 
-        int i = cm.getSize();
-
-        /*cm.addManager("2292828X", "Carlo", 5000);
+        /*
+        cm.addManager("2292828X", "Carlo", 5000);
         cm.addManager("4795783F", "Mario", 5000);
 
         cm.addEmployee("2933456C", "Juan", 2000, "2292828X", "vendor");
         cm.addEmployee("4987436B", "Pedro", 2000, "2292828X", "vendor");
-        cm.addEmployee("6472938R", "Jose", 2000, "4795783F", "vendor");
-        cm.addEmployee("2738453A", "María", 2000, "4795783F", "vendor");
+        //cm.addEmployee("6472938R", "Jose", 2000, "4795783F", "vendor");
+        //cm.addEmployee("2738453A", "María", 2000, "4795783F", "vendor");
 
         cm.addEmployee("3764357S", "Diego", 1200, "2292828X", "operator");
         cm.addEmployee("1093847P", "Ernesto", 1200, "4795783F", "operator");

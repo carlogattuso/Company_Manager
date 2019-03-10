@@ -1,6 +1,8 @@
 package Company;
 
-public abstract class Employee {
+import java.util.Comparator;
+
+public abstract class Employee implements Comparable<Employee>{
 
     protected String id;
     protected String name;
@@ -31,4 +33,8 @@ public abstract class Employee {
     }
 
     public abstract void UpdateSalary(double base_salary);
+
+    public int compareTo(Employee e) {
+        return this.name.compareTo(e.name);
+    }
 }

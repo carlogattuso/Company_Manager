@@ -9,8 +9,8 @@ public class Vendor extends Employee {
 
     private List <Sell> sells;
 
-    public List<Sell> getSells() {
-        return sells;
+    public List<Sell> getSells(){
+        return this.sells;
     }
 
     public void addSell(Sell s) {
@@ -26,22 +26,23 @@ public class Vendor extends Employee {
         this.name = name;
         this.salary = salary;
         this.id_manager = id_manager;
-        this.sells = new ArrayList<Sell>();
+        this.sells = new ArrayList<>();
     }
 
     @Override
-    public void UpdateSalary(double base_salary) {
+    public void UpdateSalary(double base_salary){
 
         double sell_amount = 0;
         double bonus;
 
-        for(Sell sell : sells){
-            sell_amount += sell.getAmount();
+        if(this.sells == null) this.salary = base_salary;
+        else {
+            for (Sell sell : sells) {
+                sell_amount += sell.getAmount();
+            }
+            bonus = sell_amount*10/100;
+            this.salary = base_salary + bonus;
         }
-
-        bonus = sell_amount*10/100;
-
-        this.salary = base_salary + bonus;
     }
 
     public String getId_manager() {

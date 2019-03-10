@@ -35,12 +35,11 @@ public class Manager extends Employee {
         for(Employee employee: employees){
             if(employee instanceof Vendor){
                 List<Sell> sells = ((Vendor) employee).getSells();
-                for(Sell sell : sells){
-                    sell_amount += sell.getAmount();
+                if(sells!=null) {
+                    for (Sell sell : sells) {
+                        sell_amount += sell.getAmount();
+                    }
                 }
-            }
-            else {
-                //Throw Vendor not found exception
             }
         }
 
