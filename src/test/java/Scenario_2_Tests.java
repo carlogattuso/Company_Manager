@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Scenario_2_Tests {
 
-    CompanyManagerImplementation cm = new CompanyManagerImplementation();
+    private CompanyManagerImplementation cm = new CompanyManagerImplementation();
 
     @Before
     public void Initialize() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
