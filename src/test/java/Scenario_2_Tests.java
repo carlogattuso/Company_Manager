@@ -56,4 +56,9 @@ public class Scenario_2_Tests {
         list = cm.findAllByManager("2292828X");
         Assert.assertEquals(3,list.size());
     }
+    @Test (expected = ListEmployeesEmptyException.class)
+    public void ListEmployeesEmptyException () throws ManagerNotFoundException, ListEmployeesEmptyException {
+        cm.addManager("1002937H", "Antonio", 1200);
+        List <Employee> list = cm.findAllByManager("1002937H");
+    }
 }

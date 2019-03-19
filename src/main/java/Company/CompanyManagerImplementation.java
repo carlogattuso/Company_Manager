@@ -62,12 +62,12 @@ public class CompanyManagerImplementation implements CompanyManager{
 
     public List<Employee> findAllByManager(String idManager) throws ManagerNotFoundException, ListEmployeesEmptyException {
         Employee e = this.employees.get(idManager);
-        List<Employee> res = null;
+        List<Employee> res;
 
         if ((e != null) && e instanceof Manager) {
             Manager manager = (Manager)e;
             res = manager.getEmployees();
-            if(res == null) throw new ListEmployeesEmptyException("This manager does not have employees");
+            if(res.size()==0) throw new ListEmployeesEmptyException("This manager does not have employees");
             else return res;
         }
         else throw new ManagerNotFoundException("Manager not found");
