@@ -1,16 +1,18 @@
 import Company.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 
 import java.util.List;
 
-public class Scenario_3_Tests {
+public class CompanyManagerTestScenario3 {
 
-    CompanyManagerImplementation cm = new CompanyManagerImplementation(5);
+    private CompanyManagerImplementation cm = null;
 
     @Before
-    public void Initialize() throws TypeNotFoundException, ManagerNotFoundException, ListFullException, VendorNotFoundException{
+    public void initialize() throws TypeNotFoundException, ManagerNotFoundException, ListFullException, VendorNotFoundException{
+        this.cm = new CompanyManagerImplementation(5);
         cm.addManager("2292828X", "Carlo", 5000);
         cm.addManager("4795783F", "Mario", 5000);
 
@@ -29,12 +31,19 @@ public class Scenario_3_Tests {
         cm.addSell("2933456C", 450);
         cm.addSell("2933456C", 320);
     }
+
+    @After
+    public void tearDown() {
+        this.cm = null;
+    }
+
     @Test(expected = ListFullException.class)
-    public void ListFullExceptionTest() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
+    public void listFullExceptionTest() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
         cm.addEmployee("2988429F", "Francisco", 2000, "2292828X", "vendor");
     }
+
     @Test
-    public void UpdateSalaryTest() {
+    public void updateSalaryTest() {
         Manager m = (Manager) cm.findById("2292828X");
         Vendor v = (Vendor) cm.findById("4987436B");
         Vendor v2 = (Vendor) cm.findById("2933456C");
@@ -48,8 +57,9 @@ public class Scenario_3_Tests {
         Assert.assertEquals(Double.valueOf(2187), v2.getSalary());
         Assert.assertEquals(Double.valueOf(1200), o.getSalary());
     }
+
     @Test
-    public void FindAllOrderByNameTest() {
+    public void findAllOrderByNameTest() {
         List<Employee> list;
         list = cm.findAllOrderByName();
         Assert.assertEquals("Carlo",list.get(0).getName());
@@ -58,8 +68,9 @@ public class Scenario_3_Tests {
         Assert.assertEquals("Mario",list.get(3).getName());
         Assert.assertEquals("Pedro",list.get(4).getName());
     }
+
     @Test
-    public void FindAllOrderBySalaryTest() {
+    public void findAllOrderBySalaryTest() {
         List<Employee> list;
         list = cm.findAllOrderBySalary();
         Assert.assertEquals("Carlo",list.get(0).getName());

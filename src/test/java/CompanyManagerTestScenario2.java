@@ -1,16 +1,18 @@
 import Company.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 
 import java.util.List;
 
-public class Scenario_2_Tests {
+public class CompanyManagerTestScenario2 {
 
-    private CompanyManagerImplementation cm = new CompanyManagerImplementation();
+    private CompanyManagerImplementation cm = null;
 
     @Before
-    public void Initialize() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
+    public void initialize() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
+        this.cm = new CompanyManagerImplementation();
         cm.addManager("2292828X", "Carlo", 5000);
         cm.addManager("4795783F", "Mario", 5000);
 
@@ -23,39 +25,51 @@ public class Scenario_2_Tests {
         cm.addEmployee("1093847P", "Ernesto", 1200, "4795783F", "operator");
     }
 
+    @After
+    public void tearDown() {
+        this.cm = null;
+    }
+
     @Test(expected = TypeNotFoundException.class)
     public void TypeNotFoundExceptionTest() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
         cm.addEmployee("3891028D", "Felipe", 1200, "2292828X", "null");
     }
+
     @Test(expected = ManagerNotFoundException.class)
     public void ManagerNotFoundExceptionTest1() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
         cm.addEmployee("1002937H", "Antonio", 1200, "null", "operator");
     }
+
     @Test(expected = ManagerNotFoundException.class)
     public void ManagerNotFoundExceptionTest2() throws ManagerNotFoundException, ListEmployeesEmptyException {
         List<Employee> list = cm.findAllByManager("null");
     }
+
     @Test
     public void getEmployeesTest() {
         Manager found = (Manager) cm.findById("2292828X");
         Assert.assertEquals(3,found.getListSize());
     }
+
     @Test
     public void addSellTest() throws VendorNotFoundException {
         cm.addSell("2933456C",400);
         Vendor v = (Vendor) cm.findById("2933456C");
         Assert.assertEquals(1, v.getSellsSize());
     }
+
     @Test(expected = VendorNotFoundException.class)
     public void VendorNotFoundExceptionTest() throws  VendorNotFoundException {
         cm.addSell("null",200);
     }
+
     @Test
     public void FindAllByManagerTest() throws ManagerNotFoundException, ListEmployeesEmptyException {
         List<Employee> list;
         list = cm.findAllByManager("2292828X");
         Assert.assertEquals(3,list.size());
     }
+
     @Test (expected = ListEmployeesEmptyException.class)
     public void ListEmployeesEmptyException () throws ManagerNotFoundException, ListEmployeesEmptyException {
         cm.addManager("1002937H", "Antonio", 1200);

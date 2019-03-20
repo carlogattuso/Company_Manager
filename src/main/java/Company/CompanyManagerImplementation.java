@@ -90,7 +90,9 @@ public class CompanyManagerImplementation implements CompanyManager{
         for(String set: stringSet){
             list.add(this.employees.get(set));
         }
-        Collections.sort(list, (one, other) -> other.getSalary().compareTo(one.getSalary()));
+        Collections.sort(list, (one, other) -> {
+            return other.getSalary().compareTo(one.getSalary());
+        });
         return list;
     }
 }
