@@ -30,7 +30,7 @@ public class Vendor extends Employee {
     }
 
     @Override
-    public void UpdateSalary(double base_salary){
+    public void updateSalary(double base_salary){
 
         double sell_amount = 0;
         double bonus;

@@ -48,10 +48,10 @@ public class CompanyManagerTestScenario3 {
         Vendor v = (Vendor) cm.findById("4987436B");
         Vendor v2 = (Vendor) cm.findById("2933456C");
         Operator o = (Operator) cm.findById("3764357S");
-        m.UpdateSalary(5000);
-        v.UpdateSalary(2000);
-        v2.UpdateSalary(2000);
-        o.UpdateSalary(1200);
+        m.updateSalary(5000);
+        v.updateSalary(2000);
+        v2.updateSalary(2000);
+        o.updateSalary(1200);
         Assert.assertEquals(Double.valueOf(5036.7), m.getSalary());
         Assert.assertEquals(Double.valueOf(2180), v.getSalary());
         Assert.assertEquals(Double.valueOf(2187), v2.getSalary());

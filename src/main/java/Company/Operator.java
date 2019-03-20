@@ -12,7 +12,7 @@ public class Operator extends Employee {
     }
 
     @Override
-    public void UpdateSalary(double base_salary) {
+    public void updateSalary(double base_salary) {
         this.salary = base_salary;
     }
 

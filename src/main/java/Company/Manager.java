@@ -7,7 +7,7 @@ public class Manager extends Employee {
 
     private List<Employee> employees;
 
-    public void AddEmployeeToManager(Employee e){
+    public void addEmployeeToManager(Employee e){
         this.employees.add(e);
     }
 
@@ -27,7 +27,7 @@ public class Manager extends Employee {
     }
 
     @Override
-    public void UpdateSalary(double base_salary) {
+    public void updateSalary(double base_salary) {
 
         double sell_amount = 0;
         double bonus;

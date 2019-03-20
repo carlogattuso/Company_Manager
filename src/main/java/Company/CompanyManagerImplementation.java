@@ -37,14 +37,14 @@ public class CompanyManagerImplementation implements CompanyManager{
                 if (m != null) {
                     Employee e = new Vendor(id, name, salary, id_manager);
                     this.employees.put(e.getId(), e);
-                    m.AddEmployeeToManager(e);
+                    m.addEmployeeToManager(e);
                 } else throw new ManagerNotFoundException("Manager not found");
             } else if (type.equals("operator") || type.equals("Operator")) {
                 Manager m = (Manager) findById(id_manager);
                 if (m != null) {
                     Employee e = new Operator(id, name, salary, id_manager);
                     this.employees.put(e.getId(), e);
-                    m.AddEmployeeToManager(e);
+                    m.addEmployeeToManager(e);
                 } else throw new ManagerNotFoundException("Manager not found");
             } else throw new TypeNotFoundException("Employee type not available, it should be vendor or operator");
         }

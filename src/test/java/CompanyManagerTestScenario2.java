@@ -31,17 +31,17 @@ public class CompanyManagerTestScenario2 {
     }
 
     @Test(expected = TypeNotFoundException.class)
-    public void TypeNotFoundExceptionTest() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
+    public void typeNotFoundExceptionTest() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
         cm.addEmployee("3891028D", "Felipe", 1200, "2292828X", "null");
     }
 
     @Test(expected = ManagerNotFoundException.class)
-    public void ManagerNotFoundExceptionTest1() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
+    public void managerNotFoundExceptionTest1() throws TypeNotFoundException, ManagerNotFoundException, ListFullException {
         cm.addEmployee("1002937H", "Antonio", 1200, "null", "operator");
     }
 
     @Test(expected = ManagerNotFoundException.class)
-    public void ManagerNotFoundExceptionTest2() throws ManagerNotFoundException, ListEmployeesEmptyException {
+    public void managerNotFoundExceptionTest2() throws ManagerNotFoundException, ListEmployeesEmptyException {
         List<Employee> list = cm.findAllByManager("null");
     }
 
@@ -59,19 +59,19 @@ public class CompanyManagerTestScenario2 {
     }
 
     @Test(expected = VendorNotFoundException.class)
-    public void VendorNotFoundExceptionTest() throws  VendorNotFoundException {
+    public void vendorNotFoundExceptionTest() throws  VendorNotFoundException {
         cm.addSell("null",200);
     }
 
     @Test
-    public void FindAllByManagerTest() throws ManagerNotFoundException, ListEmployeesEmptyException {
+    public void findAllByManagerTest() throws ManagerNotFoundException, ListEmployeesEmptyException {
         List<Employee> list;
         list = cm.findAllByManager("2292828X");
         Assert.assertEquals(3,list.size());
     }
 
     @Test (expected = ListEmployeesEmptyException.class)
-    public void ListEmployeesEmptyException () throws ManagerNotFoundException, ListEmployeesEmptyException {
+    public void listEmployeesEmptyException () throws ManagerNotFoundException, ListEmployeesEmptyException {
         cm.addManager("1002937H", "Antonio", 1200);
         List <Employee> list = cm.findAllByManager("1002937H");
     }

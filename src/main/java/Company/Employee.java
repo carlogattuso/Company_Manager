@@ -32,7 +32,7 @@ public abstract class Employee implements Comparable<Employee>{
         this.salary = salary;
     }
 
-    public abstract void UpdateSalary(double base_salary);
+    public abstract void updateSalary(double base_salary);
 
     public int compareTo(Employee e) {
         return this.name.compareTo(e.name);
